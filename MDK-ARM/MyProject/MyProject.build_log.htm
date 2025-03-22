@@ -1,0 +1,125 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.41.0.0
+Copyright (C) 2024 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 1, 1, LIC=21E4T-RP03B-45KT5-GAZ14-TE5BF-PRHI0
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.41.0.0
+Toolchain Path:  D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.41.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.3.0.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+C:\Users\Admin\Desktop\GraduationDesign\step-motor\MyProject\MDK-ARM\MyProject.uvprojx
+Project File Date:  03/23/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin'
+Build target 'MyProject'
+compiling Debug.c...
+..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+  void TMC2209_SendData(uint8_t *data,uint8_t len);
+..\Drivers\UserDrivers\Debug.h(12): warning:  #1-D: last line of file ends without a newline
+  void DebugInit(void);
+..\Drivers\UserDrivers\Debug.c(10): warning:  #223-D: function "sprintf" declared implicitly
+      sprintf(debugbuffer, "debug success");    
+..\Drivers\UserDrivers\Debug.c(11): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
+      HAL_UART_Transmit(&huart3, debugbuffer, sizeof(debugbuffer), 100);
+..\Drivers\UserDrivers\Debug.c(12): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+      HAL_UART_Receive_IT(&huart3, &debugrx, 1);
+..\Drivers\UserDrivers\Debug.c(24): warning:  #223-D: function "sprintf" declared implicitly
+        sprintf(debugstring,"debugrx:%c num:%d,rx_cnt:%d\r\n",debugrx , num , rx_cnt);
+..\Drivers\UserDrivers\Debug.c(25): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
+        HAL_UART_Transmit(&huart3, debugstring, sizeof(debugstring), 100);
+..\Drivers\UserDrivers\Debug.c(26): warning:  #186-D: pointless comparison of unsigned integer with zero
+        if(num>=0 && num<=10)
+..\Drivers\UserDrivers\Debug.c(37): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+  	HAL_UART_Receive_IT(&huart3, &debugrx, 1);
+..\Drivers\UserDrivers\Debug.c(38): warning:  #1-D: last line of file ends without a newline
+  }
+..\Drivers\UserDrivers\Debug.c: 10 warnings, 0 errors
+compiling Tmc2209.c...
+..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+  void TMC2209_SendData(uint8_t *data,uint8_t len);
+..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+  void TMC2209_SendData(uint8_t *data,uint8_t len);
+..\Drivers\UserDrivers\Debug.h(12): warning:  #1-D: last line of file ends without a newline
+  void DebugInit(void);
+..\Drivers\UserDrivers\Tmc2209.c(150): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(151): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(153): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(154): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(169): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(172): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(195): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(198): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(208): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(211): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(219): warning:  #177-D: variable "temp"  was declared but never referenced
+      float temp;
+..\Drivers\UserDrivers\Tmc2209.c: 14 warnings, 0 errors
+compiling main.c...
+../Drivers/UserDrivers/Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+  void TMC2209_SendData(uint8_t *data,uint8_t len);
+../Drivers/UserDrivers/Gripper.h(26): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Drivers/UserDrivers/Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+  void TMC2209_SendData(uint8_t *data,uint8_t len);
+../Drivers/UserDrivers/Debug.h(12): warning:  #1-D: last line of file ends without a newline
+  void DebugInit(void);
+../Drivers/UserDrivers/Led.h(25): warning:  #1-D: last line of file ends without a newline
+  #endif // LED_H
+../Drivers/UserDrivers/Key.h(10): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c: 6 warnings, 0 errors
+linking...
+Program Size: Code=23086 RO-data=450 RW-data=296 ZI-data=9792  
+FromELF: creating hex file...
+"MyProject\MyProject.axf" - 0 Error(s), 30 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM::CMSIS@5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.3.0.0.pack
+                Keil::STM32F4xx_DFP@3.0.0
+                STMicroelectronics STM32F4 Series Device Support
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_MyProject
+  D:/MyTools/Keil/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE@5.6.0
+      Include file:  CMSIS/Core/Include/tz_context.h
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
