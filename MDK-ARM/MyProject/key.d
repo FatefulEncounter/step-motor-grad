@@ -44,3 +44,4 @@ myproject\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 myproject\key.o: ../Core/Inc/gpio.h
 myproject\key.o: ..\Drivers\UserDrivers\Led.h
 myproject\key.o: ../Core/Inc/tim.h
+myproject\key.o: ..\Drivers\UserDrivers\Tmc2209.h

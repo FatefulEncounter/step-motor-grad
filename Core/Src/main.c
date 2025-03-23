@@ -116,9 +116,9 @@ int main(void)
 
   servo_init();
   Key_Init();
-	// TMC2209_Init();
+	TMC2209_Init();
 	// TMC2209_Begain();
-	// TMC2209_SpeedControl(&htim4,1);
+	//TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,1);
 
   /* USER CODE END 2 */
 

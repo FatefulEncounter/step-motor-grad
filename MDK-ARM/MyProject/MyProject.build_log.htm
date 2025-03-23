@@ -27,76 +27,68 @@ Project File Date:  03/23/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'MyProject'
-compiling Debug.c...
-..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-..\Drivers\UserDrivers\Debug.h(12): warning:  #1-D: last line of file ends without a newline
-  void DebugInit(void);
-..\Drivers\UserDrivers\Debug.c(10): warning:  #223-D: function "sprintf" declared implicitly
-      sprintf(debugbuffer, "debug success");    
-..\Drivers\UserDrivers\Debug.c(11): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
-      HAL_UART_Transmit(&huart3, debugbuffer, sizeof(debugbuffer), 100);
-..\Drivers\UserDrivers\Debug.c(12): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-      HAL_UART_Receive_IT(&huart3, &debugrx, 1);
-..\Drivers\UserDrivers\Debug.c(24): warning:  #223-D: function "sprintf" declared implicitly
-        sprintf(debugstring,"debugrx:%c num:%d,rx_cnt:%d\r\n",debugrx , num , rx_cnt);
-..\Drivers\UserDrivers\Debug.c(25): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const uint8_t *"
-        HAL_UART_Transmit(&huart3, debugstring, sizeof(debugstring), 100);
-..\Drivers\UserDrivers\Debug.c(26): warning:  #186-D: pointless comparison of unsigned integer with zero
-        if(num>=0 && num<=10)
-..\Drivers\UserDrivers\Debug.c(37): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
-  	HAL_UART_Receive_IT(&huart3, &debugrx, 1);
-..\Drivers\UserDrivers\Debug.c(38): warning:  #1-D: last line of file ends without a newline
-  }
-..\Drivers\UserDrivers\Debug.c: 10 warnings, 0 errors
 compiling Tmc2209.c...
-..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+..\Drivers\UserDrivers\Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
   void TMC2209_SendData(uint8_t *data,uint8_t len);
-..\Drivers\UserDrivers\Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
+..\Drivers\UserDrivers\Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
   void TMC2209_SendData(uint8_t *data,uint8_t len);
 ..\Drivers\UserDrivers\Debug.h(12): warning:  #1-D: last line of file ends without a newline
   void DebugInit(void);
-..\Drivers\UserDrivers\Tmc2209.c(150): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Key.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Drivers\UserDrivers\Tmc2209.c(31): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(32): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(34): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(35): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(57): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(59): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_left);
+..\Drivers\UserDrivers\Tmc2209.c(68): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(72): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(82): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(84): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_left);
+..\Drivers\UserDrivers\Tmc2209.c(93): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(97): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(105): warning:  #188-D: enumerated type mixed with another type
       TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
-..\Drivers\UserDrivers\Tmc2209.c(151): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(106): warning:  #188-D: enumerated type mixed with another type
       TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Tmc2209.c(153): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(109): warning:  #188-D: enumerated type mixed with another type
       TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
-..\Drivers\UserDrivers\Tmc2209.c(154): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(110): warning:  #188-D: enumerated type mixed with another type
       TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Tmc2209.c(169): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(126): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(172): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(129): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(195): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(152): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(198): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(155): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(208): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(165): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(211): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(168): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Tmc2209.c(219): warning:  #177-D: variable "temp"  was declared but never referenced
-      float temp;
-..\Drivers\UserDrivers\Tmc2209.c: 14 warnings, 0 errors
-compiling main.c...
-../Drivers/UserDrivers/Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-../Drivers/UserDrivers/Gripper.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Drivers/UserDrivers/Tmc2209.h(23): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-../Drivers/UserDrivers/Debug.h(12): warning:  #1-D: last line of file ends without a newline
-  void DebugInit(void);
-../Drivers/UserDrivers/Led.h(25): warning:  #1-D: last line of file ends without a newline
-  #endif // LED_H
-../Drivers/UserDrivers/Key.h(10): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Core/Src/main.c: 6 warnings, 0 errors
+..\Drivers\UserDrivers\Tmc2209.c(186): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "char *restrict"
+          sprintf(usb_tx_virtual_com,"circle:%d,pulse:%d\r\n",Motor_circle_cnt,Motor_pulse_cnt);
+..\Drivers\UserDrivers\Tmc2209.c(187): warning:  #223-D: function "CDC_Transmit_FS" declared implicitly
+          CDC_Transmit_FS(usb_tx_virtual_com,sizeof(usb_tx_virtual_com));
+..\Drivers\UserDrivers\Tmc2209.c: 28 warnings, 0 errors
 linking...
-Program Size: Code=23086 RO-data=450 RW-data=296 ZI-data=9792  
+Program Size: Code=23474 RO-data=450 RW-data=288 ZI-data=10304  
 FromELF: creating hex file...
-"MyProject\MyProject.axf" - 0 Error(s), 30 Warning(s).
+"MyProject\MyProject.axf" - 0 Error(s), 28 Warning(s).
 
 <h2>Software Packages used:</h2>
 
