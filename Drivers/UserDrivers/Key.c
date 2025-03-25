@@ -3,6 +3,11 @@
 #include "Led.h"
 #include "tim.h"
 #include "Tmc2209.h"
+#include "Gripper.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+
 
 #define KEY1_PORT GPIOC
 #define KEY1_PIN GPIO_PIN_5
@@ -136,11 +141,83 @@ void Key_stepmotor2_test(void)
     }
 
 }
+
+/**Gripper test */
+void key_gripper_test(void)
+{
+    static gripper_speed level = speed_one;
+    static bool mode = SLOW_MODE;
+    static bool single[2] = false;
+    static uint8_t circle;
+    /*up and down*/
+    if(key1_event == LONG_EVENT)
+    {   
+        if(mode==SLOW_MODE)
+            single[0] = true;
+        else
+            servo_updown(SERVO_DOWN,FAST_MODE,NULL);
+    }
+    else if(key1_event == SHORT_EVENT)
+    {
+        if(mode==SLOW_MODE)
+            single[0] = false;
+        else
+           servo_updown(SERVO_UP,FAST_MODE,NULL);
+    }
+
+    /*grab action*/
+    if(key2_event == LONG_EVENT)
+    {
+        if(mode==SLOW_MODE)
+            single[1] = true;
+        else
+        servo_gripper(SERVO_GRIP,FAST_MODE,NULL);
+    }
+    else if(key2_event == SHORT_EVENT)
+    {
+        if(mode==SLOW_MODE)
+            single[1] = false;
+        else
+            servo_gripper(SERVO_RELEASE,FAST_MODE,NULL);
+    }
+
+    circle++;
+    
+    /*fast speed control*/
+    if(mode == SLOW_MODE && circle >= 100)
+    {
+        circle = 0;
+        if(single[0] && single[1])
+        {
+            
+            servo_updown(SERVO_DOWN,FAST_MODE,speed_one);
+            servo_gripper(SERVO_GRIP,FAST_MODE,speed_one);
+        }
+        else if(single[0] && !single[1])
+        {
+            LED_Toggle(LED_GPIO_BULE_PORT, LED_GPIO_BULE_PIN);
+            servo_updown(SERVO_DOWN,FAST_MODE,speed_one);
+            servo_gripper(SERVO_RELEASE,FAST_MODE,speed_one);
+        }
+        else if(!single[0] && single[1])
+        {
+            servo_updown(SERVO_UP,FAST_MODE,speed_one);
+            servo_gripper(SERVO_GRIP,FAST_MODE,speed_one);
+        }
+        else if(!single[0] && !single[1])
+        {
+            servo_updown(SERVO_UP,FAST_MODE,speed_one);
+            servo_gripper(SERVO_RELEASE,FAST_MODE,speed_one);
+        }
+    }
+    
+}
 /*to run task--usr need */
 void Key_task(void)
 {
     // Key_led_test();
-    Key_stepmotor1_test();
+    // Key_stepmotor1_test();
+    key_gripper_test();
     key1_event = NON_EVENT;
     key2_event = NON_EVENT;
 }

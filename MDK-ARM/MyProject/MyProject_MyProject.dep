@@ -1,7 +1,7 @@
 Dependencies for Project 'MyProject', Target 'MyProject': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (startup_stm32f405xx.s)(0x67E01AFA)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include--pd "__UVISION_VERSION SETA 541" --pd "STM32F405xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f405xx.lst --xref -o myproject\startup_stm32f405xx.o --depend myproject\startup_stm32f405xx.d)
-F (../Core/Src/main.c)(0x67E021BB)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\main.o --omf_browse myproject\main.crf --depend myproject\main.d)
+F (startup_stm32f405xx.s)(0x67E14DCB)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include--pd "__UVISION_VERSION SETA 541" --pd "STM32F405xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f405xx.lst --xref -o myproject\startup_stm32f405xx.o --depend myproject\startup_stm32f405xx.d)
+F (../Core/Src/main.c)(0x67E29BA1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\main.o --omf_browse myproject\main.crf --depend myproject\main.d)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67C6CA19)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x67DD51D2)
@@ -55,7 +55,7 @@ I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602577D2)
 I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x602577DD)
 I (../Core/Inc/gpio.h)(0x67C6D091)
 I (../Drivers/UserDrivers/Tmc2209.h)(0x67E01D6E)
-I (../Drivers/UserDrivers/Gripper.h)(0x67DECB6A)
+I (../Drivers/UserDrivers/Gripper.h)(0x67E2A9C1)
 I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602577DB)
 I (../Drivers/UserDrivers/Debug.h)(0x67CD0C09)
 I (../Drivers/UserDrivers/Led.h)(0x67DEDFB6)
@@ -228,7 +228,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x67C6CA19)
-F (../Core/Src/tim.c)(0x67E01AF8)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\tim.o --omf_browse myproject\tim.crf --depend myproject\tim.d)
+F (../Core/Src/tim.c)(0x67E14DC9)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\tim.o --omf_browse myproject\tim.crf --depend myproject\tim.d)
 I (../Core/Inc/tim.h)(0x67DECC5C)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67C6CA19)
@@ -1396,7 +1396,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x67C6CA19)
-F (..\Drivers\UserDrivers\Tmc2209.c)(0x67E0265C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\tmc2209.o --omf_browse myproject\tmc2209.crf --depend myproject\tmc2209.d)
+F (..\Drivers\UserDrivers\Tmc2209.c)(0x67E02F15)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\tmc2209.o --omf_browse myproject\tmc2209.crf --depend myproject\tmc2209.d)
 I (..\Drivers\UserDrivers\Tmc2209.h)(0x67E01D6E)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67C6CA19)
@@ -1533,8 +1533,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x67C6CA19)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x67C6CA19)
 I (../Core/Inc/gpio.h)(0x67C6D091)
-F (..\Drivers\UserDrivers\Gripper.c)(0x67DECAB7)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\gripper.o --omf_browse myproject\gripper.crf --depend myproject\gripper.d)
-I (..\Drivers\UserDrivers\Gripper.h)(0x67DECB6A)
+F (..\Drivers\UserDrivers\Gripper.c)(0x67E2B384)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\gripper.o --omf_browse myproject\gripper.crf --depend myproject\gripper.d)
+I (..\Drivers\UserDrivers\Gripper.h)(0x67E2A9C1)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67C6CA19)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x67DD51D2)
@@ -1629,7 +1629,7 @@ I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x602577D2)
 I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x602577DD)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Core/Inc/stm32f4xx_it.h)(0x67DECC5D)
-F (..\Drivers\UserDrivers\Key.c)(0x67E02407)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\key.o --omf_browse myproject\key.crf --depend myproject\key.d)
+F (..\Drivers\UserDrivers\Key.c)(0x67E2B43B)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\key.o --omf_browse myproject\key.crf --depend myproject\key.d)
 I (..\Drivers\UserDrivers\Key.h)(0x67E02416)
 I (../Core/Inc/main.h)(0x67C6D091)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x67C6CA19)
@@ -1675,6 +1675,11 @@ I (../Core/Inc/gpio.h)(0x67C6D091)
 I (..\Drivers\UserDrivers\Led.h)(0x67DEDFB6)
 I (../Core/Inc/tim.h)(0x67DECC5C)
 I (..\Drivers\UserDrivers\Tmc2209.h)(0x67E01D6E)
+I (..\Drivers\UserDrivers\Gripper.h)(0x67E2A9C1)
+I (../Core/Inc/usart.h)(0x67D2B8F4)
+I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x602577DB)
+I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x602577D3)
+I (D:\MyTools\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x602577DD)
 F (../USB_DEVICE/App/usb_device.c)(0x67DD51D1)(--c99 -c --cpu Cortex-M4.fp.sp -g -O2 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/UserDrivers -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_MyProject-ID:\MyTools\Keil\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-D__UVISION_VERSION="541" -DSTM32F405xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F405xx-o myproject\usb_device.o --omf_browse myproject\usb_device.crf --depend myproject\usb_device.d)
 I (../USB_DEVICE/App/usb_device.h)(0x67DD51D1)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x67C6CA19)
