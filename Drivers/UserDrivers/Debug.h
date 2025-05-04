@@ -10,3 +10,4 @@ extern char *thisok;
 extern char debugbuffer[100];
 extern char debugrx;
 void DebugInit(void);
+void debugprocess(void);

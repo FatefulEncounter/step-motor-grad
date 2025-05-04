@@ -216,7 +216,7 @@ void key_gripper_test(void)
 void Key_task(void)
 {
     // Key_led_test();
-    // Key_stepmotor1_test();
+    Key_stepmotor1_test();
     key_gripper_test();
     key1_event = NON_EVENT;
     key2_event = NON_EVENT;
