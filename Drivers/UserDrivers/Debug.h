@@ -5,6 +5,8 @@
 #include "Tmc2209.h"
 #include <stdint.h>
 
+#define DEBUG_UART huart3
+
 extern char debugstring[100];
 extern char *thisok;
 extern char debugbuffer[100];

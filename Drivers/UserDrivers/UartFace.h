@@ -14,6 +14,9 @@
 // 这是步进电机需要转的圈数
 #define N_INTER  123 
 #define N_OUTER  126
+// XY坐标系的范围
+#define X_MAX    255
+#define Y_MAX    255
 
 typedef struct  {
     uint8_t buffer[256];
@@ -44,9 +47,17 @@ typedef struct  {
     }kinddata;
 }control_data;
 
+typedef struct{
+    float inter_circle;
+    float outer_circle;
+}setpmotor_circle;
+
 extern copy_buffer buffer_rx;
 extern control_data user_data;
+extern setpmotor_circle setpmotor_circle_data;
 
 void PrintControlData(const control_data *data);
+setpmotor_circle PosPrase(const control_data *data);
+void PrintControlData_Type(const control_data *data);
 void RxBufferParse(control_data *data , copy_buffer buffer);
 #endif

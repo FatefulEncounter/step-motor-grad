@@ -5,6 +5,8 @@
         "tim.h": "c",
         "i2c.h": "c",
         "uartface.h": "c",
-        "gripper.h": "c"
+        "gripper.h": "c",
+        "usart.h": "c",
+        "tmc2209.h": "c"
     }
 }

@@ -3,31 +3,26 @@
 /*
     通过串口6接受openmv的数据，并且在此文件中写一份函数进行解析数据
     使用了串口六
-
 帧格式：
-    帧头 | 数据长度 |     数据内容   | 校验码 | 帧尾
-    0xA5 | 0x03     | 0x01 0x02 0x03 | 0x06   | 0x5B
-
+    举例：
+        帧头 | 数据长度 |     数据内容   | 校验码 | 帧尾
+        0xA5 | 0x03     | 0x01 0x02 0x03 | 0x06   | 0x5B
 校验码的计算方法
-  uint8_t  calc_checksum ^= Uart6_RxBuffer[i];
-
+    uint8_t  calc_checksum ^= Uart6_RxBuffer[i];
     其中Uart6_RxBuffer[i]是数据内容的每一个字节
     计算校验码时不包括帧头、数据长度、校验码和帧尾
-
-舵机：12字节
+舵机：
     数据内容：类别（1），舵机id（1），修改项（2），pwm频率(4个字节)，角度(3个字节，前两个整数，最后一个小数)， 方向（1字节）
-步进电机：13字节
+步进电机：
     数据内容：类别（1），步进电机id（1），修改项（2），速度(4个字节，前三字节存整数)，方向（1），圈数(4个字节，前三字节存整数)
 xy坐标系：
     数据内容：类别（1），x坐标（2个字节），y坐标（2个字节）  ---> 查看的物料位置
     0xA5 | 0x04     | 0x00 0x00 0xFF 0XFF | 0xXX   | 0x5B    --> x = 0  y = 255
 */
-
 uint8_t Uart6_RxBuffer[256];
 uint8_t Uart6_buf_index = 0;
 uint8_t data_len = 0;
 uint8_t checksum = 0;
-
 /*
     1，先判断是否是舵机还是步进电机
     2，判断是哪个舵机还是步进电机
@@ -64,10 +59,36 @@ enum option {
     OPTION_DIRECTION = (1 << 2),        // 位2
     OPTION_SPEED = (1 << 3),            // 位3
     OPTION_CIRCLE = (1 << 4),           // 位4
+
 };
 
 copy_buffer buffer_rx = {0};
 control_data user_data = {0};
+setpmotor_circle setpmotor_circle_data = {0};
+
+setpmotor_circle PosPrase(const control_data *data) {
+    // 提取 x 和 y 坐标
+    float x = data->kinddata.xy.x;
+    float y = data->kinddata.xy.y;
+    setpmotor_circle setpmotor_circle_temp = {0};
+
+    // 检查类型是否为 CLASSIFY_xy
+    if (data->type != CLASSIFY_xy) {
+        printf("Error: Invalid data type for PosPrase. Expected CLASSIFY_xy.\n");
+        return setpmotor_circle_temp;
+    }
+    // 边界检查
+    if (x < 0 || x > X_MAX || y < 0 || y > Y_MAX) {
+        printf("Error: Coordinates out of range. X: %.2f, Y: %.2f\n", x, y);
+        return setpmotor_circle_temp;
+    }
+    // 计算圈数
+    setpmotor_circle_temp.inter_circle = (x / X_MAX) * N_INTER; // 内电机圈数
+    setpmotor_circle_temp.outer_circle = (y / Y_MAX) * N_OUTER; // 外电机圈数
+
+    return setpmotor_circle_temp;
+}
+
 
 void RxBufferParse(control_data *data , copy_buffer buffer)
 {
@@ -79,7 +100,19 @@ void RxBufferParse(control_data *data , copy_buffer buffer)
             data->type = CLASSIFY_xy;
             data->kinddata.xy.x = (buffer.buffer[1] << 8) | buffer.buffer[2]; // 读取x坐标
             data->kinddata.xy.y = (buffer.buffer[3] << 8) | buffer.buffer[4]; // 读取y坐标
-
+            if(data->kinddata.xy.x > X_MAX || data->kinddata.xy.x < 0)
+            {
+                data->kinddata.xy.x = 0;
+                setpmotor_circle_data.inter_circle = 0;
+                printf("Error: X coordinate out of range. X: %.2f\n", data->kinddata.xy.x);
+            }
+            if(data->kinddata.xy.y > Y_MAX || data->kinddata.xy.y < 0)
+            {
+                data->kinddata.xy.y = 0;
+                setpmotor_circle_data.outer_circle = 0;
+                printf("Error: Y coordinate out of range. Y: %.2f\n", data->kinddata.xy.y);
+            }
+            setpmotor_circle_data = PosPrase(data); // 调用PosPrase函数进行坐标解析
         }
         else if (buffer.buffer[0] == CLASSIFY_SERVO)
         {
@@ -99,10 +132,12 @@ void RxBufferParse(control_data *data , copy_buffer buffer)
                 data->kinddata.servo.angle = (buffer.buffer[8] << 16) |
                                              (buffer.buffer[9] << 8) |
                                              buffer.buffer[10]; // 读取角度
+                // 角度范围限制
             }
 
             if (data->option & OPTION_DIRECTION) {
                 data->kinddata.servo.direction = buffer.buffer[11]; // 读取方向
+                data->kinddata.servo.direction = (data->kinddata.servo.direction == 0) ? 0 : 1; // 方向只能是0或1
             }
         }
         else if (buffer.buffer[0] == CLASSIFY_STEPPER)
@@ -116,10 +151,19 @@ void RxBufferParse(control_data *data , copy_buffer buffer)
                                                (buffer.buffer[5] << 16) |
                                                (buffer.buffer[6] << 8) |
                                                buffer.buffer[7]; // 读取速度
+                // 速度范围限制
+                if(data->kinddata.servo.frequency >= 5250)
+                {
+                    data->kinddata.servo.frequency = 5250;
+                }else if(data->kinddata.servo.frequency <= 52)
+                {
+                    data->kinddata.servo.frequency = 52;
+                }
             }
 
             if (data->option & OPTION_DIRECTION) {
                 data->kinddata.stepper.direction = buffer.buffer[8]; // 读取方向
+                data->kinddata.stepper.direction = (data->kinddata.stepper.direction == 0) ? 0 : 1; // 方向只能是0或1
             }
 
             if (data->option & OPTION_CIRCLE) {
@@ -127,17 +171,39 @@ void RxBufferParse(control_data *data , copy_buffer buffer)
                                                 (buffer.buffer[10] << 16) |
                                                 (buffer.buffer[11] << 8) |
                                                  buffer.buffer[12]; // 读取圈数
+                // 圈数范围限制
+                if(data->id == 0)  //外电机
+                {
+                    if(data->kinddata.stepper.circle >= N_INTER)
+                    {
+                        data->kinddata.stepper.circle = N_INTER;
+                    }else if(data->kinddata.stepper.circle <= 0)
+                    {
+                        data->kinddata.stepper.circle = 0;
+                    }
+                }
+                else if(data->id == 1) //内电机
+                {
+                    if(data->kinddata.stepper.circle >= N_OUTER)
+                    {
+                        data->kinddata.stepper.circle = N_OUTER;
+                    }else if(data->kinddata.stepper.circle <= 0)
+                    {
+                        data->kinddata.stepper.circle = 0;
+                    }
+                }
             }
-
         }
         else
         {
             // 其他类型数据
         }
+
+        PrintControlData_Type(&user_data);
     }
 }
 
-void UartFace_CallBack(uint8_t data) {
+static void UartFace_CallBack(uint8_t data) {
     static uint8_t state = 0;
 
     switch (state) {
@@ -215,6 +281,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
 //按照 type进行打印 --> 由于union的原因，打印的时候需要判断类型
 void PrintControlData_Type(const control_data *data) {
+
     printf("Control Data:\n");
     printf("  Type: %u\n", data->type);
     printf("  ID: %u\n", data->id);

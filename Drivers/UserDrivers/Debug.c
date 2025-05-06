@@ -1,6 +1,4 @@
 #include "Debug.h"
-
-#define DEBUG_UART huart3
 char debugstring[100];
 char debugbuffer[100];
 char debugrx;
@@ -16,8 +14,6 @@ void DebugInit(void)
 char caputure_spcial = '\n';
 char rx_cnt = 0;
 char save_buffer[256];
-
-
 
 void DebugReceive(void)
 {
