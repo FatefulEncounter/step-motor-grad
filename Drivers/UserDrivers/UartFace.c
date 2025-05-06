@@ -1,5 +1,4 @@
 #include "UartFace.h"
-
 /*
     通过串口6接受openmv的数据，并且在此文件中写一份函数进行解析数据
     使用了串口六
@@ -12,11 +11,11 @@
     其中Uart6_RxBuffer[i]是数据内容的每一个字节
     计算校验码时不包括帧头、数据长度、校验码和帧尾
 舵机：
-    数据内容：类别（1），舵机id（1），修改项（2），pwm频率(4个字节)，角度(3个字节，前两个整数，最后一个小数)， 方向（1字节）
+    数据内容：类别(1),舵机id(1),修改项(1),pwm占空比(1个字节)，角度(3个字节，前两个整数，最后一个小数 最后一个字节的范围是 0-9)， 方向（1字节）
 步进电机：
-    数据内容：类别（1），步进电机id（1），修改项（2），速度(4个字节，前三字节存整数)，方向（1），圈数(4个字节，前三字节存整数)
+    数据内容：类别（1），步进电机id（1），修改项（1），速度(2个字节)， 方向（1），圈数(3个字节，前2字节存整数) 
 xy坐标系：
-    数据内容：类别（1），x坐标（2个字节），y坐标（2个字节）  ---> 查看的物料位置
+    数据内容： 类别（1），x坐标（2个字节），y坐标（2个字节）  ---> 查看的物料位置
     0xA5 | 0x04     | 0x00 0x00 0xFF 0XFF | 0xXX   | 0x5B    --> x = 0  y = 255
 */
 uint8_t Uart6_RxBuffer[256];
@@ -90,116 +89,95 @@ setpmotor_circle PosPrase(const control_data *data) {
 }
 
 
-void RxBufferParse(control_data *data , copy_buffer buffer)
+void RxBufferParse(control_data *data, const copy_buffer *buffer)
 {
-    if (buffer.flag == 1)
+    if (buffer->flag == 1)
     {
-        buffer.flag = 0;
-        if (buffer.buffer[0] == CLASSIFY_xy)
+        // 清除标志位
+        ((copy_buffer *)buffer)->flag = 0;
+
+        // 根据类别解析数据
+        switch (buffer->buffer[0])
         {
-            data->type = CLASSIFY_xy;
-            data->kinddata.xy.x = (buffer.buffer[1] << 8) | buffer.buffer[2]; // 读取x坐标
-            data->kinddata.xy.y = (buffer.buffer[3] << 8) | buffer.buffer[4]; // 读取y坐标
-            if(data->kinddata.xy.x > X_MAX || data->kinddata.xy.x < 0)
+            case CLASSIFY_SERVO: // 舵机数据解析
             {
-                data->kinddata.xy.x = 0;
-                setpmotor_circle_data.inter_circle = 0;
-                printf("Error: X coordinate out of range. X: %.2f\n", data->kinddata.xy.x);
+                data->type = CLASSIFY_SERVO;
+                data->id = buffer->buffer[1]; // 读取舵机id
+                data->option = buffer->buffer[2]; // 读取修改项
+
+                uint8_t offset = 3; // 数据内容起始偏移量
+
+                // 判断需要修改的选项
+                if (data->option & OPTION_PWM_FREQUENCY)
+                {
+                    data->kinddata.servo.frequency = buffer->buffer[offset] / 1000.0f; // 读取PWM占空比并转换为浮点数
+                    offset += 1; // 占用1字节
+                }
+
+                if (data->option & OPTION_ANGLE)
+                {
+                    // 读取角度（前两个字节为整数部分，第 3 个字节为小数部分）
+                    uint16_t angle_int = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1];
+                    uint8_t angle_decimal = buffer->buffer[offset + 2];
+                    data->kinddata.servo.angle = angle_int + (angle_decimal / 10.0f); // 合成浮点角度
+                    offset += 3; // 占用3字节
+                }
+
+                if (data->option & OPTION_DIRECTION)
+                {
+                    data->kinddata.servo.direction = buffer->buffer[offset]; // 读取方向
+                    offset += 1; // 占用1字节
+                }
+                break;
             }
-            if(data->kinddata.xy.y > Y_MAX || data->kinddata.xy.y < 0)
+
+            case CLASSIFY_STEPPER: // 步进电机数据解析
             {
-                data->kinddata.xy.y = 0;
-                setpmotor_circle_data.outer_circle = 0;
-                printf("Error: Y coordinate out of range. Y: %.2f\n", data->kinddata.xy.y);
-            }
-            setpmotor_circle_data = PosPrase(data); // 调用PosPrase函数进行坐标解析
-        }
-        else if (buffer.buffer[0] == CLASSIFY_SERVO)
-        {
-            data->type = CLASSIFY_SERVO;
-            data->id = buffer.buffer[1]; // 读取舵机id
-            data->option = (buffer.buffer[2] << 8) | buffer.buffer[3]; // 读取修改项
+                data->type = CLASSIFY_STEPPER;
+                data->id = buffer->buffer[1]; // 读取步进电机id
+                data->option = buffer->buffer[2]; // 读取修改项
 
-            // 判断需要修改的选项
-            if (data->option & OPTION_PWM_FREQUENCY) {
-                data->kinddata.servo.frequency = (buffer.buffer[4] << 24) |
-                                                 (buffer.buffer[5] << 16) |
-                                                 (buffer.buffer[6] << 8) |
-                                                 buffer.buffer[7]; // 读取频率
-            }
+                uint8_t offset = 3; // 数据内容起始偏移量
 
-            if (data->option & OPTION_ANGLE) {
-                data->kinddata.servo.angle = (buffer.buffer[8] << 16) |
-                                             (buffer.buffer[9] << 8) |
-                                             buffer.buffer[10]; // 读取角度
-                // 角度范围限制
-            }
-
-            if (data->option & OPTION_DIRECTION) {
-                data->kinddata.servo.direction = buffer.buffer[11]; // 读取方向
-                data->kinddata.servo.direction = (data->kinddata.servo.direction == 0) ? 0 : 1; // 方向只能是0或1
-            }
-        }
-        else if (buffer.buffer[0] == CLASSIFY_STEPPER)
-        {
-            data->type = CLASSIFY_STEPPER;
-            data->id = buffer.buffer[1]; // 读取步进电机id
-            data->option = (buffer.buffer[2] << 8) | buffer.buffer[3]; // 读取修改项
-            // 判断需要修改的选项
-            if (data->option & OPTION_SPEED) {
-                data->kinddata.stepper.speed = (buffer.buffer[4] << 24) |
-                                               (buffer.buffer[5] << 16) |
-                                               (buffer.buffer[6] << 8) |
-                                               buffer.buffer[7]; // 读取速度
-                // 速度范围限制
-                if(data->kinddata.servo.frequency >= 5250)
+                // 判断需要修改的选项
+                if (data->option & OPTION_SPEED)
                 {
-                    data->kinddata.servo.frequency = 5250;
-                }else if(data->kinddata.servo.frequency <= 52)
-                {
-                    data->kinddata.servo.frequency = 52;
+                    data->kinddata.stepper.speed = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1]; // 读取速度（2字节）
+                    offset += 2; // 占用2字节
                 }
-            }
 
-            if (data->option & OPTION_DIRECTION) {
-                data->kinddata.stepper.direction = buffer.buffer[8]; // 读取方向
-                data->kinddata.stepper.direction = (data->kinddata.stepper.direction == 0) ? 0 : 1; // 方向只能是0或1
-            }
-
-            if (data->option & OPTION_CIRCLE) {
-                data->kinddata.stepper.circle = (buffer.buffer[9] << 24) |
-                                                (buffer.buffer[10] << 16) |
-                                                (buffer.buffer[11] << 8) |
-                                                 buffer.buffer[12]; // 读取圈数
-                // 圈数范围限制
-                if(data->id == 0)  //外电机
+                if (data->option & OPTION_DIRECTION)
                 {
-                    if(data->kinddata.stepper.circle >= N_INTER)
-                    {
-                        data->kinddata.stepper.circle = N_INTER;
-                    }else if(data->kinddata.stepper.circle <= 0)
-                    {
-                        data->kinddata.stepper.circle = 0;
-                    }
+                    data->kinddata.stepper.direction = buffer->buffer[offset]; // 读取方向
+                    offset += 1; // 占用1字节
                 }
-                else if(data->id == 1) //内电机
-                {
-                    if(data->kinddata.stepper.circle >= N_OUTER)
-                    {
-                        data->kinddata.stepper.circle = N_OUTER;
-                    }else if(data->kinddata.stepper.circle <= 0)
-                    {
-                        data->kinddata.stepper.circle = 0;
-                    }
-                }
-            }
-        }
-        else
-        {
-            // 其他类型数据
-        }
 
-        PrintControlData_Type(&user_data);
+                if (data->option & OPTION_CIRCLE)
+                {
+                    // 读取圈数（前两个字节为整数部分，第 3 个字节为小数部分）
+                    uint16_t circle_int = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1];
+                    uint8_t circle_decimal = buffer->buffer[offset + 2];
+
+                    data->kinddata.stepper.circle = circle_int + (circle_decimal / 10.0f); // 合成浮点圈数
+                    offset += 3; // 占用3字节
+                }
+                break;
+            }
+
+            case CLASSIFY_xy: // XY 坐标数据解析
+            {
+                data->type = CLASSIFY_xy;
+                data->kinddata.xy.x = (buffer->buffer[1] << 8) | buffer->buffer[2]; // 读取x坐标
+                data->kinddata.xy.y = (buffer->buffer[3] << 8) | buffer->buffer[4]; // 读取y坐标
+                break;
+            }
+
+            default:
+                printf("Error: Unknown data type.\n");
+                break;
+            }
+        // 打印解析后的数据
+        PrintControlData_Type(data);
     }
 }
 

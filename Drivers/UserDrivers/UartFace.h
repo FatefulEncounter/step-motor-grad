@@ -59,5 +59,5 @@ extern setpmotor_circle setpmotor_circle_data;
 void PrintControlData(const control_data *data);
 setpmotor_circle PosPrase(const control_data *data);
 void PrintControlData_Type(const control_data *data);
-void RxBufferParse(control_data *data , copy_buffer buffer);
+void RxBufferParse(control_data *data, const copy_buffer *buffer);
 #endif

@@ -132,7 +132,7 @@ int main(void)
   while (1)
   {
 
-    RxBufferParse(&user_data,buffer_rx);
+    RxBufferParse(&user_data,&buffer_rx);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
