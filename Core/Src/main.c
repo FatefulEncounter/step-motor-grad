@@ -34,6 +34,7 @@
 #include <stdint.h>
 #include "Led.h"
 #include "Key.h"
+#include "UartFace.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -127,6 +128,7 @@ int main(void)
   while (1)
   {
 
+    RxBufferParse(&user_data,buffer_rx);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

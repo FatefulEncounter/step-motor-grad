@@ -41,6 +41,7 @@
 "myproject\gripper.o"
 "myproject\usbcom.o"
 "myproject\key.o"
+"myproject\uartface.o"
 "myproject\usb_device.o"
 "myproject\usbd_desc.o"
 "myproject\usbd_cdc_if.o"

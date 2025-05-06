@@ -59,3 +59,6 @@ myproject\main.o: ../Drivers/UserDrivers/Debug.h
 myproject\main.o: ../Drivers/UserDrivers/Tmc2209.h
 myproject\main.o: ../Drivers/UserDrivers/Led.h
 myproject\main.o: ../Drivers/UserDrivers/Key.h
+myproject\main.o: ../Drivers/UserDrivers/UartFace.h
+myproject\main.o: ../Drivers/UserDrivers/Debug.h
+myproject\main.o: ../Drivers/UserDrivers/Tmc2209.h

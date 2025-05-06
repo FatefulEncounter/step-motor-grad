@@ -37,7 +37,6 @@ void DebugReceive(void)
     }
 }
 
-
 void debugprocess(void)
 {
   uint8_t num=0;

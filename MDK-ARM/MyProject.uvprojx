@@ -1482,6 +1482,11 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\UserDrivers\Key.c</FilePath>
             </File>
+            <File>
+              <FileName>UartFace.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\UserDrivers\UartFace.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
