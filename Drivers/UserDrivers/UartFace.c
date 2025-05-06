@@ -111,6 +111,15 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                 if (data->option & OPTION_PWM_FREQUENCY)
                 {
                     data->kinddata.servo.frequency = buffer->buffer[offset] / 1000.0f; // 读取PWM占空比并转换为浮点数
+
+                    if(data->kinddata.servo.frequency > 0.125f)
+                    {
+                        data->kinddata.servo.frequency = 0.125f;
+                    }
+                    else if(data->kinddata.servo.frequency < 0.025f) 
+                    {
+                        data->kinddata.servo.frequency = 0.025f;
+                    }
                     offset += 1; // 占用1字节
                 }
 
@@ -119,13 +128,24 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                     // 读取角度（前两个字节为整数部分，第 3 个字节为小数部分）
                     uint16_t angle_int = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1];
                     uint8_t angle_decimal = buffer->buffer[offset + 2];
-                    data->kinddata.servo.angle = angle_int + (angle_decimal / 10.0f); // 合成浮点角度
+                    data->kinddata.servo.angle = angle_int + (angle_decimal / 10.0f); // 合成浮点角度   
+                    
+                    // 限制角度范围在 0 到 180 度之间  如果舵机ID是360°的就需要加限制条件 去处理360°的舵机
+                    if(data->kinddata.servo.angle > 180.0f)
+                    {
+                        data->kinddata.servo.angle = 180.0f;
+                    }
+                    else if(data->kinddata.servo.angle < 0.0f) 
+                    {
+                        data->kinddata.servo.angle = 0.0f;
+                    }
                     offset += 3; // 占用3字节
                 }
 
                 if (data->option & OPTION_DIRECTION)
                 {
                     data->kinddata.servo.direction = buffer->buffer[offset]; // 读取方向
+                    data->kinddata.servo.direction = (data->kinddata.servo.direction == 0) ? 0 : 1; // 确保方向值为 0 或 1
                     offset += 1; // 占用1字节
                 }
                 break;
@@ -143,12 +163,22 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                 if (data->option & OPTION_SPEED)
                 {
                     data->kinddata.stepper.speed = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1]; // 读取速度（2字节）
+                    if(data->kinddata.stepper.speed > 5250.0f) // 限制速度范围
+                    {
+                        data->kinddata.stepper.speed = 5250.0f;
+                    }
+                    else if(data->kinddata.stepper.speed < 52.0f) 
+                    {
+                        data->kinddata.stepper.speed = 52.0f;
+                    }
+
                     offset += 2; // 占用2字节
                 }
 
                 if (data->option & OPTION_DIRECTION)
                 {
                     data->kinddata.stepper.direction = buffer->buffer[offset]; // 读取方向
+                    data->kinddata.stepper.direction = (data->kinddata.stepper.direction == 0) ? 0 : 1; // 确保方向值为 0 或 1
                     offset += 1; // 占用1字节
                 }
 
@@ -157,8 +187,15 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                     // 读取圈数（前两个字节为整数部分，第 3 个字节为小数部分）
                     uint16_t circle_int = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1];
                     uint8_t circle_decimal = buffer->buffer[offset + 2];
-
                     data->kinddata.stepper.circle = circle_int + (circle_decimal / 10.0f); // 合成浮点圈数
+                    if(data->kinddata.stepper.circle > 126.0f) // 限制圈数范围
+                    {
+                        data->kinddata.stepper.circle = 126.0f;
+                    }
+                    else if(data->kinddata.stepper.circle < 0.0f) 
+                    {
+                        data->kinddata.stepper.circle = 0.0f;
+                    }
                     offset += 3; // 占用3字节
                 }
                 break;
@@ -169,6 +206,24 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                 data->type = CLASSIFY_xy;
                 data->kinddata.xy.x = (buffer->buffer[1] << 8) | buffer->buffer[2]; // 读取x坐标
                 data->kinddata.xy.y = (buffer->buffer[3] << 8) | buffer->buffer[4]; // 读取y坐标
+                if(data->kinddata.xy.x > X_MAX) // 限制x坐标范围
+                {
+                    data->kinddata.xy.x = X_MAX;
+                }
+                else if(data->kinddata.xy.x < 0.0f) 
+                {
+                    data->kinddata.xy.x = 0.0f;
+                }
+                
+                if(data->kinddata.xy.y > Y_MAX) // 限制y坐标范围
+                {
+                    data->kinddata.xy.y = Y_MAX;
+                }
+                else if(data->kinddata.xy.y < 0.0f) 
+                {
+                    data->kinddata.xy.y = 0.0f;
+                }
+
                 break;
             }
 
@@ -200,7 +255,7 @@ static void UartFace_CallBack(uint8_t data) {
             Uart6_buf_index = 0;
             state = FRAME_READING_DATA;
             break;
-        case FRAME_READING_DATA: // 读取数据内容
+        case FRAME_READING_DATA:  // 读取数据内容
             if (Uart6_buf_index < data_len) {
                 // 继续接收数据内容
                 Uart6_RxBuffer[Uart6_buf_index++] = data;
