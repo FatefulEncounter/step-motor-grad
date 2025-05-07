@@ -56,6 +56,8 @@ extern copy_buffer buffer_rx;
 extern control_data user_data;
 extern setpmotor_circle setpmotor_circle_data;
 
+void TestCopyBuffer(void);
+
 void PrintControlData(const control_data *data);
 setpmotor_circle PosPrase(const control_data *data);
 void PrintControlData_Type(const control_data *data);

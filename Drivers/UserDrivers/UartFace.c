@@ -93,6 +93,7 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
 {
     if (buffer->flag == 1)
     {
+        printf("hello RxBufferParse \n");
         // 清除标志位
         ((copy_buffer *)buffer)->flag = 0;
 
@@ -129,7 +130,10 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                     uint16_t angle_int = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1];
                     uint8_t angle_decimal = buffer->buffer[offset + 2];
                     data->kinddata.servo.angle = angle_int + (angle_decimal / 10.0f); // 合成浮点角度   
-                    
+
+                    //printf("buffer->buffer[offset] << 8 : %x,   %x \n", buffer->buffer[offset], (buffer->buffer[offset + 1]));
+                    //printf("angle_int = %d, angle_decimal = %d \n", angle_int, angle_decimal);
+                    //printf("angle = %f \n", data->kinddata.servo.angle);
                     // 限制角度范围在 0 到 180 度之间  如果舵机ID是360°的就需要加限制条件 去处理360°的舵机
                     if(data->kinddata.servo.angle > 180.0f)
                     {
@@ -160,28 +164,6 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                 uint8_t offset = 3; // 数据内容起始偏移量
 
                 // 判断需要修改的选项
-                if (data->option & OPTION_SPEED)
-                {
-                    data->kinddata.stepper.speed = (buffer->buffer[offset] << 8) | buffer->buffer[offset + 1]; // 读取速度（2字节）
-                    if(data->kinddata.stepper.speed > 5250.0f) // 限制速度范围
-                    {
-                        data->kinddata.stepper.speed = 5250.0f;
-                    }
-                    else if(data->kinddata.stepper.speed < 52.0f) 
-                    {
-                        data->kinddata.stepper.speed = 52.0f;
-                    }
-
-                    offset += 2; // 占用2字节
-                }
-
-                if (data->option & OPTION_DIRECTION)
-                {
-                    data->kinddata.stepper.direction = buffer->buffer[offset]; // 读取方向
-                    data->kinddata.stepper.direction = (data->kinddata.stepper.direction == 0) ? 0 : 1; // 确保方向值为 0 或 1
-                    offset += 1; // 占用1字节
-                }
-
                 if (data->option & OPTION_CIRCLE)
                 {
                     // 读取圈数（前两个字节为整数部分，第 3 个字节为小数部分）
@@ -198,6 +180,35 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                     }
                     offset += 3; // 占用3字节
                 }
+
+                if (data->option & OPTION_SPEED)
+                {
+                    data->kinddata.stepper.speed = (buffer->buffer[offset] << 8) | (buffer->buffer[offset + 1]); // 读取速度（2字节）
+                    if(data->kinddata.stepper.speed > 5250.0f) // 限制速度范围
+                    {
+                        printf("speed > 5250.0f \n");
+                        data->kinddata.stepper.speed = 5250.0f;
+                    }
+                    else if(data->kinddata.stepper.speed < 52.0f) 
+                    {
+                        printf("speed < 52.0f \n");
+                        data->kinddata.stepper.speed = 52.0f;
+                    }
+                    else
+                    {
+                        printf("speed \n");
+                    }
+                    offset += 2; // 占用2字节
+                }
+
+                if (data->option & OPTION_DIRECTION)
+                {
+                    data->kinddata.stepper.direction = buffer->buffer[offset]; // 读取方向
+                    data->kinddata.stepper.direction = (data->kinddata.stepper.direction == 0) ? 0 : 1; // 确保方向值为 0 或 1
+                    offset += 1; // 占用1字节
+                }
+
+                
                 break;
             }
 
@@ -232,7 +243,8 @@ void RxBufferParse(control_data *data, const copy_buffer *buffer)
                 break;
             }
         // 打印解析后的数据
-        PrintControlData_Type(data);
+        if(data->type != 0)
+            PrintControlData_Type(data);
     }
 }
 
@@ -357,4 +369,44 @@ void PrintControlData_Type(const control_data *data) {
             printf("  Unknown Type\n");
             break;
     }
+}
+
+
+// 模拟三个不同的数据集
+void TestCopyBuffer(void) {
+    // 数据集 1：XY 坐标系（有效数据部分）
+    copy_buffer buffer1 = {
+        .buffer = {0x03, 0x00, 0xFF, 0x00, 0xFF}, // 类别、X坐标、Y坐标
+        .length = 5,
+        .flag = 1
+    };
+
+    // 数据集 2：舵机数据（有效数据部分）
+    copy_buffer buffer2 = {
+        .buffer = {0x01,0x00,0x07,0x64,0x00,0x9C,0x02,0x01}, // 类别、ID、修改项、PWM频率、角度、方向
+        .length = 9,
+        .flag = 1
+    };
+
+    // 数据集 3：步进电机数据（有效数据部分）
+    copy_buffer buffer3 = {
+        .buffer = {0x02, 0x00, 0x18, 0x00, 0x78, 0x03, 0x14, 0x82}, // 类别、ID、修改项、速度、圈数
+        .length = 8,
+        .flag = 1
+    };
+
+    // 测试解析函数
+    control_data data;
+
+    printf("Testing buffer1 (XY Coordinates):\n");
+    RxBufferParse(&data, &buffer1);
+    PrintControlData_Type(&data);
+
+    printf("\nTesting buffer2 (Servo Data):\n");
+    RxBufferParse(&data, &buffer2);
+    PrintControlData_Type(&data);
+
+    // printf("\nTesting buffer3 (Stepper Motor Data):\n");
+    // RxBufferParse(&data, &buffer3);
+    // PrintControlData_Type(&data);
 }

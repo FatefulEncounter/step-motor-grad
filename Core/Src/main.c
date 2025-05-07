@@ -66,9 +66,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
 int fputc(int ch, FILE *f)
 {         
-  HAL_UART_Transmit(&DEBUG_UART, (uint8_t *)&ch, 1, 100);
+  HAL_UART_Transmit(&DEBUG_UART, (uint8_t *)&ch, 1, 0xffff);
 	return ch;
 }
 /* USER CODE END 0 */
@@ -115,24 +116,36 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+
   LED_Init(GPIOA,GPIO_PIN_8);
   LED_Init(GPIOC,GPIO_PIN_9);
   LED_Init(GPIOC,GPIO_PIN_8);
 
+  LED_On(GPIOA,GPIO_PIN_8);
+
+  DebugInit();
   servo_init();
   Key_Init();
 	TMC2209_Init();
-	// TMC2209_Begain();
-	TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,6);
 
+	// TMC2209_Begain();
+	
+  TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,6);
+
+  buffer_rx.flag  = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    LED_Toggle(GPIOA,GPIO_PIN_8);
+    
+    TestCopyBuffer();
+    // RxBufferParse(&user_data,&buffer_rx);
+    printf("hello world\n");
 
-    RxBufferParse(&user_data,&buffer_rx);
+    HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

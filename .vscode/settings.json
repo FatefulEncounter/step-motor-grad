@@ -7,6 +7,8 @@
         "uartface.h": "c",
         "gripper.h": "c",
         "usart.h": "c",
-        "tmc2209.h": "c"
+        "tmc2209.h": "c",
+        "led.h": "c",
+        "stdio.h": "c"
     }
 }

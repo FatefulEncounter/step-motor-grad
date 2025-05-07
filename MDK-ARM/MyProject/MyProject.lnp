@@ -50,7 +50,7 @@
 "myproject\usbd_ctlreq.o"
 "myproject\usbd_ioreq.o"
 "myproject\usbd_cdc.o"
---strict --scatter "MyProject\MyProject.sct"
+--library_type=microlib --strict --scatter "MyProject\MyProject.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "MyProject.map" -o MyProject\MyProject.axf

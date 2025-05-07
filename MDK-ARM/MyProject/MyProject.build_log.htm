@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\Admin\Desktop\GraduationDesign\step-motor\MyProject\MDK-ARM\MyProject.uvprojx
-Project File Date:  05/05/2025
+Project File Date:  05/07/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin'
@@ -32,37 +32,19 @@ compiling UartFace.c...
   void TMC2209_SendData(uint8_t *data,uint8_t len);
 ..\Drivers\UserDrivers\Debug.h(15): warning:  #1-D: last line of file ends without a newline
   void debugprocess(void);
-..\Drivers\UserDrivers\UartFace.h(63): warning:  #1-D: last line of file ends without a newline
+..\Drivers\UserDrivers\UartFace.h(65): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Drivers\UserDrivers\UartFace.c(311): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+..\Drivers\UserDrivers\UartFace.c(323): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
           HAL_UART_Receive_IT(&huart3, &debugrx, 1);
-..\Drivers\UserDrivers\UartFace.c(360): warning:  #1-D: last line of file ends without a newline
+..\Drivers\UserDrivers\UartFace.c(412): warning:  #1-D: last line of file ends without a newline
   }
-..\Drivers\UserDrivers\UartFace.c: 5 warnings, 0 errors
-compiling main.c...
-../Drivers/UserDrivers/Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-../Drivers/UserDrivers/Gripper.h(36): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Drivers/UserDrivers/Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-../Drivers/UserDrivers/Debug.h(15): warning:  #1-D: last line of file ends without a newline
-  void debugprocess(void);
-../Drivers/UserDrivers/Led.h(25): warning:  #1-D: last line of file ends without a newline
-  #endif // LED_H
-../Drivers/UserDrivers/Key.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Drivers/UserDrivers/Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-../Drivers/UserDrivers/Debug.h(15): warning:  #1-D: last line of file ends without a newline
-  void debugprocess(void);
-../Drivers/UserDrivers/UartFace.h(63): warning:  #1-D: last line of file ends without a newline
-  #endif
-../Core/Src/main.c: 9 warnings, 0 errors
+..\Drivers\UserDrivers\UartFace.c(392): warning:  #177-D: variable "buffer3"  was declared but never referenced
+      copy_buffer buffer3 = {
+..\Drivers\UserDrivers\UartFace.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=32412 RO-data=696 RW-data=308 ZI-data=11340  
+Program Size: Code=28520 RO-data=1228 RW-data=300 ZI-data=10468  
 FromELF: creating hex file...
-"MyProject\MyProject.axf" - 0 Error(s), 14 Warning(s).
+"MyProject\MyProject.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -85,7 +67,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE@5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
