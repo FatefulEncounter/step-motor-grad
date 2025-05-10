@@ -121,31 +121,26 @@ int main(void)
   LED_Init(GPIOC,GPIO_PIN_9);
   LED_Init(GPIOC,GPIO_PIN_8);
 
-  LED_On(GPIOA,GPIO_PIN_8);
-
   DebugInit();
   servo_init();
   Key_Init();
 	TMC2209_Init();
+  TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,1);
 
-	// TMC2209_Begain();
-	
-  TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,6);
-
-  buffer_rx.flag  = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    LED_Toggle(GPIOA,GPIO_PIN_8);
+    // LED_Toggle(GPIOA,GPIO_PIN_8);
     
-    TestCopyBuffer();
+    // TestCopyBuffer();
     // RxBufferParse(&user_data,&buffer_rx);
-    printf("hello world\n");
+    // printf("hello world\n");
+    Key_task();
 
-    HAL_Delay(1000);
+    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

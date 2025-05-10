@@ -41,12 +41,12 @@ myproject\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 myproject\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 myproject\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 myproject\key.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+myproject\key.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 myproject\key.o: ../Core/Inc/gpio.h
 myproject\key.o: ..\Drivers\UserDrivers\Led.h
 myproject\key.o: ../Core/Inc/tim.h
 myproject\key.o: ..\Drivers\UserDrivers\Tmc2209.h
 myproject\key.o: ..\Drivers\UserDrivers\Gripper.h
 myproject\key.o: ../Core/Inc/usart.h
-myproject\key.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 myproject\key.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 myproject\key.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -9,6 +9,10 @@
         "usart.h": "c",
         "tmc2209.h": "c",
         "led.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "stm32f4xx_hal_gpio.h": "c",
+        "stdbool.h": "c",
+        "stdint.h": "c",
+        "stm32f4xx_hal.h": "c"
     }
 }

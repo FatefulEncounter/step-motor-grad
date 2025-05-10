@@ -48,3 +48,4 @@ myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Debug.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Tmc2209.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Key.h
+myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
