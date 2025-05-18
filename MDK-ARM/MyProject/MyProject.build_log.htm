@@ -22,93 +22,91 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\Admin\Desktop\GraduationDesign\step-motor\MyProject\MDK-ARM\MyProject.uvprojx
-Project File Date:  05/07/2025
+Project File Date:  05/14/2025
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin'
 Build target 'MyProject'
-compiling Key.c...
-..\Drivers\UserDrivers\Key.h(21): warning:  #1-D: last line of file ends without a newline
+compiling Tmc2209.c...
+..\Drivers\UserDrivers\Debug.h(15): warning:  #1-D: last line of file ends without a newline
+  void debugprocess(void);
+..\Drivers\UserDrivers\Key.h(26): warning:  #1-D: last line of file ends without a newline
   #endif
-..\Drivers\UserDrivers\Led.h(25): warning:  #1-D: last line of file ends without a newline
-  #endif // LED_H
-..\Drivers\UserDrivers\Tmc2209.h(82): warning:  #1-D: last line of file ends without a newline
-  void TMC2209_SendData(uint8_t *data,uint8_t len);
-..\Drivers\UserDrivers\Gripper.h(36): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\Drivers\UserDrivers\Key.c(102): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(107): warning:  #188-D: enumerated type mixed with another type
+..\Drivers\UserDrivers\Tmc2209.c(29): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(30): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(32): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(33): warning:  #188-D: enumerated type mixed with another type
+      HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(52): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(54): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOC, MOTOR_DIR_LEFT_PIN, Motor_left);
+..\Drivers\UserDrivers\Tmc2209.c(62): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(65): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(75): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(77): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTORDIR_PIN, Motor_left);
+..\Drivers\UserDrivers\Tmc2209.c(85): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(88): warning:  #188-D: enumerated type mixed with another type
+                  HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(96): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(97): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(100): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
+..\Drivers\UserDrivers\Tmc2209.c(101): warning:  #188-D: enumerated type mixed with another type
+      TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
+..\Drivers\UserDrivers\Tmc2209.c(117): warning:  #188-D: enumerated type mixed with another type
               TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(115): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(120): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(129): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(130): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(134): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(135): warning:  #188-D: enumerated type mixed with another type
-              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(147): warning:  #188-D: enumerated type mixed with another type
-              servo_updown(SERVO_DOWN,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(156): warning:  #188-D: enumerated type mixed with another type
-              servo_updown(SERVO_UP,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(189): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(190): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(196): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(197): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(203): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(204): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(210): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTORDIR_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(211): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(224): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(225): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(231): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_right);
-..\Drivers\UserDrivers\Key.c(232): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(238): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(239): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
-..\Drivers\UserDrivers\Key.c(245): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,Motor_left);
-..\Drivers\UserDrivers\Key.c(246): warning:  #188-D: enumerated type mixed with another type
-          TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
-..\Drivers\UserDrivers\Key.c(258): warning:  #520-D: initialization with "{...}" expected for aggregate object
-      static bool single[2] = false;
-..\Drivers\UserDrivers\Key.c(266): warning:  #188-D: enumerated type mixed with another type
-              servo_updown(SERVO_DOWN,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(273): warning:  #188-D: enumerated type mixed with another type
-             servo_updown(SERVO_UP,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(282): warning:  #188-D: enumerated type mixed with another type
-          servo_gripper(SERVO_GRIP,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(289): warning:  #188-D: enumerated type mixed with another type
-              servo_gripper(SERVO_RELEASE,FAST_MODE,NULL);
-..\Drivers\UserDrivers\Key.c(256): warning:  #177-D: variable "level"  was declared but never referenced
-      static gripper_speed level = speed_one;
-..\Drivers\UserDrivers\Key.c(343): warning:  #177-D: variable "time_cnt"  was declared but never referenced
-      static int time_cnt;
-..\Drivers\UserDrivers\Key.c(41): warning:  #177-D: variable "time_tick"  was declared but never referenced
-  static uint16_t time_tick = 0; 
-..\Drivers\UserDrivers\Key.c: 38 warnings, 0 errors
+..\Drivers\UserDrivers\Tmc2209.c(120): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(143): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(146): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(156): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_RIGHT_TIM,MOTOREN_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Tmc2209.c(159): warning:  #188-D: enumerated type mixed with another type
+              TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
+..\Drivers\UserDrivers\Debug.h(15): warning:  #1-D: last line of file ends without a newline
+  void debugprocess(void);
+..\Drivers\UserDrivers\UartFace.h(105): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\Drivers\UserDrivers\Tmc2209.c(219): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if(xdata >= 30000 || xdata < 0 ||ydata >= 30000 || ydata < 0 )
+..\Drivers\UserDrivers\Tmc2209.c(219): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if(xdata >= 30000 || xdata < 0 ||ydata >= 30000 || ydata < 0 )
+..\Drivers\UserDrivers\Tmc2209.c(228): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if(ytemp_cnt_need > 6000000 || ytemp_cnt_need <0 ||xtemp_cnt_need > 6000000 || xtemp_cnt_need <0)
+..\Drivers\UserDrivers\Tmc2209.c(228): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if(ytemp_cnt_need > 6000000 || ytemp_cnt_need <0 ||xtemp_cnt_need > 6000000 || xtemp_cnt_need <0)
+..\Drivers\UserDrivers\Tmc2209.c: 30 warnings, 0 errors
+compiling main.c...
+../Drivers/UserDrivers/Gripper.h(36): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Drivers/UserDrivers/Debug.h(15): warning:  #1-D: last line of file ends without a newline
+  void debugprocess(void);
+../Drivers/UserDrivers/Led.h(25): warning:  #1-D: last line of file ends without a newline
+  #endif // LED_H
+../Drivers/UserDrivers/Key.h(26): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Drivers/UserDrivers/Debug.h(15): warning:  #1-D: last line of file ends without a newline
+  void debugprocess(void);
+../Drivers/UserDrivers/UartFace.h(105): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=26316 RO-data=448 RW-data=304 ZI-data=10464  
+Program Size: Code=27208 RO-data=448 RW-data=368 ZI-data=9712  
 FromELF: creating hex file...
-"MyProject\MyProject.axf" - 0 Error(s), 38 Warning(s).
+"MyProject\MyProject.axf" - 0 Error(s), 36 Warning(s).
 
 <h2>Software Packages used:</h2>
 

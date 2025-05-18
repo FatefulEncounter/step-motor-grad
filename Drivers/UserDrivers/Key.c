@@ -65,11 +65,11 @@ GPIO_PinState Key_GetState(GPIO_TypeDef* GPIOx,uint16_t GPIO_Pin)
         短按： 控制电机2的方向
 */
 
-static bool motor_right = false;
-static bool motor_left  = false;
+bool motor_right = false;
+bool motor_left  = false;
 
-static bool motor_dir    = false;
-static bool gripper_down = false;
+bool motor_dir    = false;
+bool gripper_down = false;
 
 // #define StepMotor_EN    0
 // #define StepMotor_DISEN 1
@@ -112,12 +112,12 @@ void Key_stepmotor_other_test(void) {
         if(motor_left == true)
         {
             LED_On(LED_GPIO_BULE_PORT, LED_GPIO_BULE_PIN);
-            TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,StepMotor_EN);
+            TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_EN);
         }
         else
         {
             LED_Off(LED_GPIO_BULE_PORT, LED_GPIO_BULE_PIN);
-            TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_DIR_LEFT_PIN,StepMotor_DISEN);
+            TMC2209_Control(&MOTOR_LEFT_TIM,MOTOR_EN_LEFT_PIN,StepMotor_DISEN);
         }
     }
 
@@ -141,20 +141,24 @@ void Key_stepmotor_other_test(void) {
             LED_Off(LED_GPIO_READ_PORT, LED_GPIO_READ_PIN);
     
     } else if (key2_event == LONG_EVENT) {
-        gripper_down = !gripper_down;
-        if(gripper_down == true)
-        {
+        //gripper_down = !gripper_down;
+        //if(gripper_down == true)
+        //{
             servo_updown(SERVO_DOWN,FAST_MODE,NULL);
             // key_deley(3000);
+            LED_On(LED_GPIO_READ_PORT, LED_GPIO_READ_PIN);
             HAL_Delay(2000);
+            LED_Off(LED_GPIO_READ_PORT, LED_GPIO_READ_PIN);
             servo_gripper(SERVO_GRIP,FAST_MODE,speed_one);
             // key_deley(3000);
             HAL_Delay(2000);
+            LED_On(LED_GPIO_READ_PORT, LED_GPIO_READ_PIN);
             servo_gripper(SERVO_RELEASE,FAST_MODE,speed_one);
             // key_deley(3000);
             HAL_Delay(2000);
+            LED_Off(LED_GPIO_READ_PORT, LED_GPIO_READ_PIN);
             servo_updown(SERVO_UP,FAST_MODE,NULL);
-        }
+        //}
     }
 }
 /*上述是新的一些步进电机的控制方法*/
@@ -330,12 +334,10 @@ void Key_task(void)
     // Key_stepmotor2_test();
     // key_gripper_test();
     
-    // Key_stepmotor_other_test();
+    Key_stepmotor_other_test();
     
-    __disable_irq(); // 禁用全局中断
     key1_event = NON_EVENT;
     key2_event = NON_EVENT;
-    __enable_irq(); // 重新启用全局中断
 }
 
 
@@ -431,7 +433,7 @@ void key_press(void)
         }
     }
 
-    
+    Key_task();
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)

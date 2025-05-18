@@ -23,11 +23,6 @@ char tmc2209buffer[100];
     126 1100
     123 1000
 */
-void TMC2209_Test(void)
-{
-
-        
-}
 void TMC2209_Init(void)
 {
     /*EN & DIR INIT*/
@@ -43,9 +38,6 @@ void TMC2209_Init(void)
 
     HAL_TIM_PWM_Stop_IT(&MOTOR_LEFT_TIM, TIM_CHANNEL_1);
     __HAL_TIM_SetCompare(&MOTOR_LEFT_TIM, TIM_CHANNEL_1, MOTOR_LEFT_TIM.Instance->ARR/2); 
-
-    /*UART*/
-    // HAL_UART_MspInit(&huart1);
 
 }
 
@@ -66,11 +58,9 @@ void TMC2209_Control(TIM_HandleTypeDef *htim,uint16_t GPIO_Pin,GPIO_PinState Pin
         {
             if(PinState == StepMotor_EN)
             {
-                //HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
                 HAL_TIM_PWM_Start_IT(htim, TIM_CHANNEL_1);
                 HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_EN);
             }else {
-                //HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
                 HAL_TIM_PWM_Stop_IT(htim, TIM_CHANNEL_1);
                 HAL_GPIO_WritePin(GPIOA, MOTOR_EN_LEFT_PIN, StepMotor_DISEN);
             }
@@ -91,11 +81,9 @@ void TMC2209_Control(TIM_HandleTypeDef *htim,uint16_t GPIO_Pin,GPIO_PinState Pin
         {
             if(PinState == StepMotor_EN)
             {
-                //HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
                 HAL_TIM_PWM_Start_IT(htim, TIM_CHANNEL_1);
                 HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_EN);
             }else {
-                //HAL_TIM_PWM_Stop(&htim4, TIM_CHANNEL_1);
                 HAL_TIM_PWM_Stop_IT(htim, TIM_CHANNEL_1);
                 HAL_GPIO_WritePin(GPIOB, MOTOREN_PIN, StepMotor_DISEN);
             }
@@ -174,20 +162,166 @@ float TMC2209_SetCircle(TIM_HandleTypeDef *htim,float circle)
     return circle_temp;
 }
 
+/********************************************** 
+ * 
+ * 这里是为了能够快速实现毕业设计任务的一些简单的函数写的比较狗屎
+ * 
+ * 
+ ***********************************************/
+#include "UartFace.h"
+
+uint32_t simple_right_cnt;
+uint32_t simple_right_circle;
+uint32_t simple_left_cnt;
+uint32_t simple_left_circle;
+uint8_t tmc2209_simple_flag[2] = {0};
+
+
+void tmc2209_simpleprocess(const float x, const float y)
+{
+    simple_right_circle = (x * ONE_CIRCLE_PULSE)/ONE_CIRCLE_PULSE;  //需要转的圈数
+    simple_right_cnt = (int)(x * ONE_CIRCLE_PULSE) % ONE_CIRCLE_PULSE; //需要转的脉冲数
+
+    simple_right_circle = (x * ONE_CIRCLE_PULSE)/ONE_CIRCLE_PULSE;  //需要转的圈数
+    simple_right_cnt = (int)(x * ONE_CIRCLE_PULSE) % ONE_CIRCLE_PULSE; //需要转的脉冲数
+}
+
+void get_tmc2209_simple_flag(uint8_t *x_flag,uint8_t *y_flag)
+{
+    *x_flag = tmc2209_simple_flag[0];
+    *y_flag = tmc2209_simple_flag[1];
+}
+
+/*
+ *  可知T8的丝杆所以我们转一圈的话 可以走8MM 
+ *  我们写一个函数去实现按毫米进行控制 x y 长 30cm * 20cm 30*1000 30000
+ *  1mm -- 200cnt            30 000 * 200 = 6 000 000
+ */
+int32_t xtemp_cnt_all;
+int32_t ytemp_cnt_all;
+
+uint16_t xstepmotor; //motor的坐标位置
+uint16_t ystepmotor;
+
+int32_t xtemp_cnt_need;
+int32_t ytemp_cnt_need;
+
+bool     x_cnt_flag;
+bool     y_cnt_flag;
+
+uint8_t tmc2209_1mm_control(uint16_t xdata,uint16_t ydata)  //xdata & ydata都是mm的
+{
+    x_cnt_flag = 1;
+    y_cnt_flag = 1;
+    xtemp_cnt_need = xdata * 200;
+    ytemp_cnt_need = ydata * 200;
+
+    if(xdata >= 30000 || xdata < 0 ||ydata >= 30000 || ydata < 0 )
+    {
+        printf("data need erro");
+        xtemp_cnt_need = 0;
+        ytemp_cnt_need = 0;
+        x_cnt_flag = 0;
+        y_cnt_flag = 0;
+        return 255;
+    }
+    if(ytemp_cnt_need > 6000000 || ytemp_cnt_need <0 ||xtemp_cnt_need > 6000000 || xtemp_cnt_need <0)
+    {
+        printf("cnt need erro");
+        x_cnt_flag = 0;
+        y_cnt_flag = 0;
+        xtemp_cnt_need = 0;
+        ytemp_cnt_need = 0;
+        return 254;
+    }
+
+    return 0;
+}
+
+void xy_stepmotor(void) //记录步进电机自己的坐标
+{
+    xstepmotor = xtemp_cnt_all / 200; //ms
+    ystepmotor = ytemp_cnt_all / 200; //ms
+    printf("xstepmotor:%d;ystepmotor:%d\n",xstepmotor,ystepmotor);
+}
+
 uint8_t usb_tx_virtual_com[256];
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
-    // float temp;
-	if(htim == &MOTOR_RIGHT_TIM)
-	{
-        Motor_pulse_cnt++;
-        if(Motor_pulse_cnt>=1500)
-        {
-            Motor_pulse_cnt = 0;
-            Motor_circle_cnt ++;
+    if(htim == &MOTOR_LEFT_TIM)
+    {
+        if(motor_right == true)
+            xtemp_cnt_all++;
+        else
+            xtemp_cnt_all--;
+
+        if(x_cnt_flag !=0 && (xtemp_cnt_need <= 6000000 && xtemp_cnt_need>0))
+        {   
+            xtemp_cnt_need--;
         }
-        sprintf(usb_tx_virtual_com,"circle:%d,pulse:%d\r\n",Motor_circle_cnt,Motor_pulse_cnt);
-        CDC_Transmit_FS(usb_tx_virtual_com,sizeof(usb_tx_virtual_com));
+
+        // if(simple_right_circle != 0 && simple_right_cnt != 0)
+        // {
+        //     simple_right_cnt--;
+        // }else if(simple_right_cnt == 0)
+        // {
+        //     if(simple_right_circle !=0)
+        //     {
+        //         simple_right_circle --;
+        //         simple_right_cnt = (1600 - 1);
+        //     }
+        // }
+
+        // if(simple_right_circle == 0 && simple_right_cnt == 0)
+        // {
+        //     tmc2209_simple_flag[0] = 1;
+        // }
+    }
+
+    if(htim == &MOTOR_RIGHT_TIM)
+    {
+
+         if(motor_dir == true)
+            ytemp_cnt_all--;
+        else
+            ytemp_cnt_all++;
+
+        if(y_cnt_flag !=0 && (ytemp_cnt_need <= 6000000 && ytemp_cnt_need>0))
+        {   
+            ytemp_cnt_need++;
+        }
+
+        // if(simple_left_circle != 0 && simple_left_cnt != 0)
+        // {
+        //     simple_left_cnt--;
+        // }else if(simple_left_cnt == 0)
+        // {
+        //     if(simple_left_circle !=0)
+        //     {
+        //         simple_left_circle --;
+        //         simple_left_cnt = (1600 - 1);
+        //     }
+        // }
+
+        // if(simple_right_circle == 0 && simple_right_cnt == 0)
+        // {
+        //     tmc2209_simple_flag[1] = 1;
+        // }
+    }
+
+    // float temp;
+	// if(htim == &MOTOR_RIGHT_TIM)
+	// {
+    //     Motor_pulse_cnt++;
+    //     if(Motor_pulse_cnt>1600)
+    //     {
+    //         Motor_pulse_cnt = 0;
+    //         Motor_circle_cnt ++;
+    //     }
+        // sprintf(usb_tx_virtual_com,"circle:%d,pulse:%d\r\n",Motor_circle_cnt,Motor_pulse_cnt);
+        // CDC_Transmit_FS(usb_tx_virtual_com,sizeof(usb_tx_virtual_com));
+
+
     //     pulse_cnt+=1;
 
     //     if((need_circle != current_circle || need_point_cnt != pulse_cnt_temp) //尚未达到目标要求
@@ -200,7 +334,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
     //             pulse_cnt_temp = 0;
     //         }
     //     }
-	}
+	// }
 
     // if(htim == &MOTOR_LEFT_TIM)
     // {
@@ -219,11 +353,11 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
     // }
 }
 
-
-
 /***********usart driver********
 
     一帧数据只需 8 byte
+
+    这里没用到
 
 */
 #define SYNC_RESERVED 0X05

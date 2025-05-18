@@ -6,6 +6,11 @@
 extern int Motor_pulse_cnt;
 extern int Motor_circle_cnt;
 
+extern bool motor_right ;
+extern bool motor_left  ;
+
+extern bool motor_dir   ;
+extern bool gripper_down;
 
 void Key_Init(void);
 void Key_task(void);
@@ -16,6 +21,6 @@ void Key_ControlMotor(TIM_HandleTypeDef* motor_port, uint16_t motor_pin, bool en
 void Key_stepmotor_other_test(void);
 void gripper_test(void);
 
-
+void key_deley(uint16_t time);
 
 #endif

@@ -115,6 +115,7 @@ int main(void)
   MX_USART6_UART_Init();
   MX_USB_DEVICE_Init();
   MX_TIM1_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
   LED_Init(GPIOA,GPIO_PIN_8);
@@ -122,11 +123,14 @@ int main(void)
   LED_Init(GPIOC,GPIO_PIN_8);
 
   DebugInit();
+  Bluetooth_Init();
+  uart_opnemv_Init();
   servo_init();
   Key_Init();
 	TMC2209_Init();
-  TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,1);
-
+  // TMC2209_SpeedControl(&MOTOR_RIGHT_TIM,1);
+  // TMC2209_SpeedControl(&MOTOR_LEFT_TIM,1);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -134,12 +138,13 @@ int main(void)
   while (1)
   {
     // LED_Toggle(GPIOA,GPIO_PIN_8);
-    
     // TestCopyBuffer();
-    // RxBufferParse(&user_data,&buffer_rx);
-    // printf("hello world\n");
-    Key_task();
+    xy_stepmotor();
+    HAL_Delay(1000);
+//    RxBufferParse(&user_data,&buffer_rx);
+//    Bluetooth_Parsedata(&user_bluetooth_data,&xbuffer_bluetooth);
 
+    // printf("hello world\n");
     
     /* USER CODE END WHILE */
 

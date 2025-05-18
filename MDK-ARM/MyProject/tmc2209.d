@@ -41,6 +41,7 @@ myproject\tmc2209.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 myproject\tmc2209.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 myproject\tmc2209.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 myproject\tmc2209.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 myproject\tmc2209.o: ../Core/Inc/usart.h
 myproject\tmc2209.o: ../Core/Inc/gpio.h
 myproject\tmc2209.o: ../Core/Inc/tim.h
@@ -48,4 +49,8 @@ myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Debug.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Tmc2209.h
 myproject\tmc2209.o: ..\Drivers\UserDrivers\Key.h
-myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+myproject\tmc2209.o: ..\Drivers\UserDrivers\UartFace.h
+myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+myproject\tmc2209.o: ..\Drivers\UserDrivers\Debug.h
+myproject\tmc2209.o: ..\Drivers\UserDrivers\Tmc2209.h
+myproject\tmc2209.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

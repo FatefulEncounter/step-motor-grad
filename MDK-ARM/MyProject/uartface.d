@@ -47,5 +47,8 @@ myproject\uartface.o: ..\Drivers\UserDrivers\Debug.h
 myproject\uartface.o: ../Core/Inc/tim.h
 myproject\uartface.o: ../Core/Inc/gpio.h
 myproject\uartface.o: ..\Drivers\UserDrivers\Tmc2209.h
+myproject\uartface.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 myproject\uartface.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 myproject\uartface.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+myproject\uartface.o: ..\Drivers\UserDrivers\Led.h
+myproject\uartface.o: ..\Drivers\UserDrivers\Gripper.h

@@ -45,3 +45,4 @@ myproject\debug.o: ../Core/Inc/tim.h
 myproject\debug.o: ../Core/Inc/usart.h
 myproject\debug.o: ../Core/Inc/gpio.h
 myproject\debug.o: ..\Drivers\UserDrivers\Tmc2209.h
+myproject\debug.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

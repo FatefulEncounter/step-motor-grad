@@ -53,8 +53,8 @@ myproject\main.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 myproject\main.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 myproject\main.o: ../Core/Inc/gpio.h
 myproject\main.o: ../Drivers/UserDrivers/Tmc2209.h
-myproject\main.o: ../Drivers/UserDrivers/Gripper.h
 myproject\main.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+myproject\main.o: ../Drivers/UserDrivers/Gripper.h
 myproject\main.o: ../Drivers/UserDrivers/Debug.h
 myproject\main.o: ../Drivers/UserDrivers/Tmc2209.h
 myproject\main.o: ../Drivers/UserDrivers/Led.h

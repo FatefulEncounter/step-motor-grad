@@ -1,0 +1,11 @@
+myproject\vl53l0x_i2c_win_serial_comms.o: ..\Drivers\VL53L0X\platform\src\vl53l0x_i2c_win_serial_comms.c
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+myproject\vl53l0x_i2c_win_serial_comms.o: ..\Drivers\VL53L0X\platform\inc\vl53l0x_i2c_platform.h
+myproject\vl53l0x_i2c_win_serial_comms.o: ..\Drivers\VL53L0X\core\inc\vl53l0x_def.h
+myproject\vl53l0x_i2c_win_serial_comms.o: ..\Drivers\VL53L0X\core\inc\vl53l0x_device.h
+myproject\vl53l0x_i2c_win_serial_comms.o: ..\Drivers\VL53L0X\platform\inc\vl53l0x_types.h
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+myproject\vl53l0x_i2c_win_serial_comms.o: D:\MyTools\Keil\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

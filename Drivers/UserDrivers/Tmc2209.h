@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "stdbool.h"
 
 #define StepMotor_EN    0
 #define StepMotor_DISEN 1
@@ -80,3 +80,11 @@ void TMC2209_SpeedControl(TIM_HandleTypeDef *htim,float circle);
 void TMC2209_UartInit(void);
 void TMC2209_SendByte(uint8_t data);
 void TMC2209_SendData(uint8_t *data,uint8_t len);
+
+
+/*************************** */
+void tmc2209_simpleprocess(const float x, const float y);
+void get_tmc2209_simple_flag(uint8_t *x,uint8_t *y);
+
+/************************* */
+void xy_stepmotor(void);
